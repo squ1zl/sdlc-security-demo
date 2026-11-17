@@ -1,4 +1,3 @@
-
 # Модель загроз (STRIDE)
 
 ## Контекст
@@ -15,7 +14,7 @@
 ## 3 сценарії атак
 1) **SQL Injection у /search**  
    - Вектор: параметр `q` прямо в SQL.  
-   - Виявлення: SAST (Semgrep/Bandit), DAST (ZAP SQLi), мануальні тести.  
+   - Виявлення: SAST (Semgrep/Bandit B608), DAST (ZAP SQLi), мануальні тести.  
    - Пом'якшення: параметризовані запити.
 
 2) **Reflected XSS у /echo**  
@@ -28,7 +27,8 @@
    - Виявлення: SAST, пентест-чекліст; лог-аналіз.  
    - Пом'якшення: хешування (PBKDF2/Argon2), lockout, 2FA (опційно).
 
-## Виявлені ризики/знахідки (заповнює студент)
-- [ ] R1 SQLi: ...
-- [ ] R2 XSS: ...
-- [ ] R3 Weak auth: ...
+## Виявлені ризики/знахідки
+- [x] R1 SQLi (`src/app.py:32`): виявлено Bandit `[B608:hardcoded_sql_expressions]` (CWE-89) — конкатенація параметра `q` у SQL-запиті.
+- [x] R2 XSS (`src/app.py:21`): повернення неекранованого параметра `msg` у відповіді `/echo`.
+- [x] R3 Weak auth (`src/db.py:12`, `src/app.py:41`): паролі у відкритому вигляді (`plaintext`), відсутність прапорців безпеки сесійних cookie.
+- [x] R4 Misconfiguration (`src/app.py:6, 63`): виявлено Bandit `[B201:flask_debug_true]` (CWE-94) та `[B104:hardcoded_bind_all_interfaces]` (CWE-605).

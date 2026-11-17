@@ -1,5 +1,6 @@
-Risk ID,Threat,Likelihood,Impact,Severity,Owner,Status,Notes
-R1,SQLi,High,High,Critical,Team,Open,
-R2,XSS,Med,Med,High,Team,Open,
-R3,Weak auth,High,High,Critical,Team,Open,
-R4,Deps vulns,Med,Med,High,Team,Open,
+ID,Ризик,Категорія STRIDE,Ймовірність,Вплив,Пріоритет,Статус
+R1,SQL Injection у /search (src/app.py:32 / B608),Tampering / Info Disclosure,Висока,Високий,Critical,Виявлено
+R2,Reflected XSS у /echo (src/app.py:21),Information Disclosure,Висока,Середній,High,Виявлено
+R3,Паролі у plaintext та cookie без флагів (/login),Spoofing / Info Disclosure,Середня,Високий,High,Виявлено
+R4,Flask debug=True та bind 0.0.0.0 (B201 / B104),Elevation of Privilege,Середня,Високий,High,Виявлено
+R5,Вразливості у залежностях (requirements.txt),Tampering / DoS,Низька,Середній,Medium,На перевірці
